@@ -1,0 +1,38 @@
+name: CI Angular
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.19.0]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: |
+            package-lock.json
+
+    - name: Create environment file's directory
+      run: mkdir -p ./src/environments
+    - name: Create empty environment file
+      run: touch ./src/environments/environment.prod.ts
+    - name: Restore environment file content from secret
+      env:
+        ANGULAR_ENVIRONMENT: ${{ secrets.ANGULAR_ENVIRONMENT }}
+      run: echo $ANGULAR_ENVIRONMENT | base64 --decode --ignore-garbage > ./src/environments/environment.prod.ts
+    - name: Check restored file content
+      run: cat ./src/environments/environment.prod.ts
+
+    - run: npm ci
+    - run: npm run build
