@@ -1,0 +1,26 @@
+{
+  "name": "functions",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "emulate": "firebase emulators:start --only functions,auth,firestore,storage,pubsub --import=emulator --export-on-exit",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^9.4.2",
+    "firebase-functions": "^3.20.0"
+  },
+  "devDependencies": {
+    "firebase-tools": "^11.19.0",
+    "typescript": "^4.6.4"
+  },
+  "private": true
+}
