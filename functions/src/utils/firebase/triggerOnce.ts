@@ -1,7 +1,7 @@
 import { EventContext } from 'firebase-functions';
-import { db, FieldValue } from '../../utils/firebase';
+import { db, FieldValue } from '.';
 
-export const hasAlreadyTriggered = (
+const hasAlreadyTriggered = (
   eventID: string,
   suffix: string
 ): Promise<boolean> => {

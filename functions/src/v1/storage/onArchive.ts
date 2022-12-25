@@ -1,5 +1,5 @@
 import functions from '../../utils/firebase/baseFunction';
-import { triggerOnce } from '../../utils/firebase/hasAlreadyTriggered';
+import { triggerOnce } from '../../utils/firebase/triggerOnce';
 import { logger } from '../../utils/firebase/logger';
 
 export const onArchive = () =>
