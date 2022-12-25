@@ -35,28 +35,28 @@ export const backupAuthToStorage = () =>
         logger.debug('timestamp', { timestamp });
 
         const tmpDir = '/tmp';
-        const plainJsonFileName = `auth-backup-${timestamp}.json`;
-        logger.debug('plainJsonFileName', { plainJsonFileName });
-        const plainJsonFilePath = `${tmpDir}/${plainJsonFileName}`;
-        logger.debug('plainJsonFilePath', { plainJsonFilePath });
+        const plainCsvFileName = `auth-backup-${timestamp}.csv`;
+        logger.debug('plainCsvFileName', { plainCsvFileName });
+        const plainCsvFilePath = `${tmpDir}/${plainCsvFileName}`;
+        logger.debug('plainCsvFilePath', { plainCsvFilePath });
 
-        logger.debug(`Downloading auth backup to ${plainJsonFilePath}...`);
-        await firebaseTools.auth.export(plainJsonFilePath, {
+        logger.debug(`Downloading auth backup to ${plainCsvFilePath}...`);
+        await firebaseTools.auth.export(plainCsvFilePath, {
           project: projectID,
         });
         logger.debug('Download complete');
 
-        logger.debug(`Uploading ${plainJsonFilePath} to ${bucketName}...`);
+        logger.debug(`Uploading ${plainCsvFilePath} to ${bucketName}...`);
         const bucket = storage.bucket(bucketName);
-        const gcsDestination = `${now.getFullYear()}/${(
+        const destination = `${now.getFullYear()}/${(
           '0' +
           (now.getMonth() + 1)
-        ).slice(-2)}/${plainJsonFileName}`;
-        await bucket.upload(plainJsonFilePath, { destination: gcsDestination });
+        ).slice(-2)}/${plainCsvFileName}`;
+        await bucket.upload(plainCsvFilePath, { destination });
         logger.debug('Upload complete');
 
-        logger.debug(`Deleting ${plainJsonFilePath}...`);
-        fs.unlinkSync(plainJsonFilePath);
+        logger.debug(`Deleting ${plainCsvFilePath}...`);
+        fs.unlinkSync(plainCsvFilePath);
         logger.debug('Delete complete');
 
         logger.debug('Backup operation complete');
