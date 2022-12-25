@@ -9,7 +9,8 @@ export const backupFirestoreToStorage = () =>
     .runWith({ memory: '1GB', timeoutSeconds: 120 })
     .pubsub.schedule('0 3 * * *')
     .timeZone('Asia/Tokyo')
-    .onRun(async () => {
+    .onRun(async (context) => {
+      logger.debug(context);
       try {
         const projectID =
           process.env.GCLOUD_PROJECT || process.env.GCLOUD_PROJECT;
