@@ -50,3 +50,7 @@ src/environments/*.ts
 .firebase
 
 *.log
+
+# cypress
+cypress/screenshots
+cypress/videos
