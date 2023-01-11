@@ -33,7 +33,7 @@ jobs:
         with:
           # Starts web server for E2E tests - replace with your own server invocation
           # https://docs.cypress.io/guides/continuous-integration/introduction#Boot-your-server
-          start: npm start, npm --prefix ./functions run watch, npm --prefix ./functions run emulate
+          start: npm start, npm --prefix ./functions run build:watch, npm --prefix ./functions run emulate
           wait-on: 'http://localhost:4200, http://localhost:4000' # Waits for above
           # Records to Cypress Dashboard
           # https://docs.cypress.io/guides/dashboard/projects#Set-up-a-project-to-record
